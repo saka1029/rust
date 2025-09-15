@@ -52,4 +52,16 @@ fn main() {
     let tup1 = tup.1;
     let tup2 = tup.2;
     println!("tup0={}, tup1={}, tup2={}", tup0, tup1, tup2);
+    // array
+    let a = [1, 2, 3, 4, 5];
+    println!("a = {:?}", a); // フォーマット文字列"{}"は使えない
+    let months = ["January", "February", "March", "April", "May", "June", "July",
+        "August", "September", "October", "November", "December"];
+    println!("months = {:?}", months); // フォーマット文字列"{}"は使えない
+    let a: [i32; 5] = [1,2,3,4,5];
+    println!("a = {:?}", a); // フォーマット文字列"{}"は使えない
+    let a = [3; 5];
+    println!("a = {:?}", a); // フォーマット文字列"{}"は使えない
+    let a = [1, 2, 3, 4, 5];
+    println!("a[0] = {}, a[1] = {}", a[0], a[1]); // フォーマット文字列"{}"は使えない
 }
