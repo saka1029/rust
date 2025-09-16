@@ -6,7 +6,7 @@ fn main() {
         x + 1
     };
     println!("The value of y is: {}", y);
-    println!("The value of five() is: {}", five());
+    println!("The value of plus_one(five()) is: {}", plus_one(five()));
 }
 
 // fn another_function(x: i32, unit_label: char) {
@@ -15,4 +15,7 @@ fn main() {
 // }
 fn five() -> i32 {
      5
+}
+fn plus_one(x: i32) -> i32 {
+    x + 1
 }
