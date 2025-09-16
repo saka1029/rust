@@ -15,5 +15,5 @@ fn main() {
         }
         count += 1;
     }
-                println!("End counr = {}", count);
+    println!("End counr = {}", count);
 }
