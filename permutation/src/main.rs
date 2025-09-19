@@ -1,4 +1,4 @@
-fn solve(n: usize, k: usize, i: usize, result: &mut Vec<usize>, used: &mut Vec<bool>) {
+fn solve(n: usize, k: usize, i: usize, result: &mut Vec<i32>, used: &mut Vec<bool>) {
 //    println!("n={}, k={}, result={:?} used={:?}", n, k, result, used);
     if i >= k {
         println!("answer={:?}", result);
@@ -6,15 +6,16 @@ fn solve(n: usize, k: usize, i: usize, result: &mut Vec<usize>, used: &mut Vec<b
         for j in 0..n as usize {
             if !used[j] {
                 used[j] = true;
-                result[i] = j;
+                result[i] = j as i32;
                 solve(n, k, i + 1, result, used);
                 used[j] = false;
             }
         }
     }
 }
+
 fn permutation(n: usize, k: usize) {
-    let mut result = vec![0 as usize; k];
+    let mut result = vec![0; k];
     let mut used = vec![false; n];
 //    result[1] = 100;
 //    used[1] = true;
