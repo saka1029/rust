@@ -1,4 +1,28 @@
-fn solve(n: usize, k: usize, i: usize, result: &mut Vec<i32>, used: &mut Vec<bool>) {
+fn permutation_return_solve(n: usize, k: usize, i: usize, result: &mut Vec<i32>, used: &mut Vec<bool>, answer: &mut Vec<Vec<i32>>) {
+    if i >= k {
+        answer.push(result.clone());
+    } else {
+        for j in 0..n as usize {
+            if !used[j] {
+                used[j] = true;
+                result[i] = j as i32;
+                permutation_return_solve(n, k, i + 1, result, used, answer);
+                used[j] = false;
+            }
+        }
+    }
+}
+
+fn permutation_return(n: usize, k: usize) -> Vec<Vec<i32>> {
+    println!("n={}, k={}", n, k);
+    let mut answer: Vec<Vec<i32>> = Vec::new();
+    let mut result = vec![0; k];
+    let mut used = vec![false; n];
+    permutation_return_solve(n, k, 0, &mut result, &mut used, &mut answer);
+    answer
+}
+
+fn permutation_callback_solve(n: usize, k: usize, i: usize, result: &mut Vec<i32>, used: &mut Vec<bool>) {
 //    println!("n={}, k={}, result={:?} used={:?}", n, k, result, used);
     if i >= k {
         println!("answer={:?}", result);
@@ -7,22 +31,24 @@ fn solve(n: usize, k: usize, i: usize, result: &mut Vec<i32>, used: &mut Vec<boo
             if !used[j] {
                 used[j] = true;
                 result[i] = j as i32;
-                solve(n, k, i + 1, result, used);
+                permutation_callback_solve(n, k, i + 1, result, used);
                 used[j] = false;
             }
         }
     }
 }
 
-fn permutation(n: usize, k: usize) {
+fn permutation_callback(n: usize, k: usize) {
     let mut result = vec![0; k];
     let mut used = vec![false; n];
 //    result[1] = 100;
 //    used[1] = true;
     println!("n={}, k={}, result={:?} used={:?}", n, k, result, used);
-    solve(n, k, 0, &mut result, &mut used);
+    permutation_callback_solve(n, k, 0, &mut result, &mut used);
 }
 
 fn main() {
-    permutation(3, 3);
+    permutation_callback(3, 3);
+    let p = permutation_return(3, 3);
+    println!("p={:?}", p);
 }
