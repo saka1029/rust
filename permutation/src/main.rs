@@ -22,6 +22,32 @@ fn permutation_callback<F: Fn(&Vec<i32>)>(n: usize, k: usize, f: F) {
     permutation_callback_solve(n, k, 0, &mut result, &mut used, &f);
 }
 
+type PermutationCallback = fn(&Vec<i32>);
+
+fn permutation_callback2_solve(n: usize, k: usize, i: usize,
+        result: &mut Vec<i32>, used: &mut Vec<bool>, f: &PermutationCallback) {
+    if i >= k {
+        f(result);
+    } else {
+        for j in 0..n as usize {
+            if !used[j] {
+                used[j] = true;
+                result[i] = j as i32;
+                permutation_callback2_solve(n, k, i + 1, result, used, f);
+                used[j] = false;
+            }
+        }
+    }
+}
+
+fn permutation_callback2(n: usize, k: usize, f: PermutationCallback) {
+    println!("n={}, k={}", n, k);
+    let mut result = vec![0; k];
+    let mut used = vec![false; n];
+    println!("result={:?}, used={:?}", result, used);
+    permutation_callback2_solve(n, k, 0, &mut result, &mut used, &f);
+}
+
 fn permutation_return_solve(n: usize, k: usize, i: usize,
         result: &mut Vec<i32>, used: &mut Vec<bool>, answer: &mut Vec<Vec<i32>>) {
     if i >= k {
@@ -80,4 +106,5 @@ fn main() {
         println!("callback result={:?}", result);
     };
     permutation_callback(3, 3, callback);
+    permutation_callback2(3, 3, callback);
 }
