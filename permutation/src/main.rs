@@ -1,3 +1,27 @@
+fn permutation_nested(n: usize, k: usize, callback: fn(&Vec<i32>)) {
+    println!("n={}, k={}", n, k);
+    let mut result = vec![0; k];
+    let mut used = vec![false; n];
+    println!("result={:?}, used={:?}", result, used);
+    fn solve(n: usize, k: usize, i: usize,
+            result: &mut Vec<i32>, used: &mut Vec<bool>, callback: fn(&Vec<i32>)) {
+        if i >= k {
+            callback(&result);
+        } else {
+            for j in 0..n as usize {
+                if !used[j] {
+                    used[j] = true;
+                    result[i] = j as i32;
+                    solve(n, k, i + 1, result, used, callback);
+                    used[j] = false;
+                }
+            }
+        }
+
+    }
+    solve(n, k, 0, &mut result, &mut used, callback);
+}
+
 type PermutationCallback = fn(&Vec<i32>);
 
 fn permutation_callback_solve(n: usize, k: usize, i: usize,
@@ -75,10 +99,15 @@ fn permutation_print(n: usize, k: usize) {
 }
 
 fn main() {
+    println!("*** permutation_print");
     permutation_print(3, 3);
+    println!("*** permutation_return");
     let p = permutation_return(3, 3);
     println!("p={:?}", p);
     let callback = |result: &Vec<i32>| 
         println!("callback result={:?}", result);
+    println!("*** permutation_callback");
     permutation_callback(3, 3, callback);
+    println!("*** permutation_nested");
+    permutation_nested(3, 3, callback);
 }
