@@ -7,7 +7,7 @@ fn main() {
     println!("s1={}", s2);
     let string = "hello";
     println!("string={}", string);
-    let str_len = calculate_length(string);
+    let str_len = calculate_length(&String::from(string));
     println!("str_len={}", str_len);
 }
 
