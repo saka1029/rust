@@ -16,11 +16,20 @@ impl IpAddr {
     }
 }
 
-// #[derive(Debug)]
-// enum IpAddrSimple {
-//     V4(String),
-//     V6(String),
-// }
+#[derive(Debug)]
+enum IpAddrSimple {
+    V4(String),
+    V6(String),
+}
+
+impl IpAddrSimple {
+    fn print(&self) {
+        match self {
+            IpAddrSimple::V4(s) => println!("IpAddrSimple(V4, {})", s),
+            IpAddrSimple::V6(s) => println!("IpAddrSimple(V6, {})", s),
+        }
+    }
+}
 
 fn main() {
     let four = IpAddrKind::V4;
@@ -37,10 +46,10 @@ fn main() {
     };
     home.print();
     loopback.print();
-    // let home_simple = IpAddrSimple::V4(String::from("127.0.0.1"));
-    // let loopback_simple = IpAddrSimple::V6(String::from("::1"));
-    // println!("home_simple={:?}, loopback_simple={:?}",
-    //     home_simple, loopback_simple);
+    let home_simple = IpAddrSimple::V4(String::from("127.0.0.1"));
+    let loopback_simple = IpAddrSimple::V6(String::from("::1"));
+    home_simple.print();
+    loopback_simple.print();
 }
 
 fn route(ip_type: IpAddrKind) {
